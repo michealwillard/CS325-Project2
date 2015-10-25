@@ -12,6 +12,7 @@ import time
 sys.setrecursionlimit(2000)
 coinValues = []
 totalValue = []
+lineIndex = 0
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference
@@ -25,13 +26,13 @@ def readFiles():
 	outputFile = open('Amountchange.txt', 'w')
 	
 	string = inputFile.read()
-	string = string.translate(None, '[], ')
+	string = string.translate(None, '[],')
 	outputFile.write(string)
 	outputFile.seek(0)
 	
 	# sub procedure to create the arrays of values
 	# 1st, 3rd, etc line is a coinValues. 2nd, 4th, etc line is a totalValue
-	with open('Amountchange.txt') as file: # double check whihc file to have here
+	with open('Amountchange.txt') as file: # double check whihc file to have here change
 		i = 0
 		for line in file:
 			# Condition for Odd number File Lines
@@ -39,40 +40,19 @@ def readFiles():
 			if i % 2 == 0:
 				line = line.split()
 				line = [int(j) for j in line]
+				print line
 				coinValues.append(line)
 			# Condition for Even number File Lines
 			else:
 				line = int(line)
 				totalValue.append(line)
 			i += 1
+			print line
 	outputFile.truncate(0)
 	outputFile.close()
 	
-#	
-#	def dpMakeChange(coinValueList,change,minCoins,coinsUsed):
-#	   for cents in range(change+1):
-#	      coinCount = cents
-#	      newCoin = 1
-#	      for j in [c for c in coinValueList if c <= cents]:
-#	            if minCoins[cents-j] + 1 < coinCount:
-#	               coinCount = minCoins[cents-j]+1
-#	               newCoin = j
-#	      minCoins[cents] = coinCount
-#	      coinsUsed[cents] = newCoin
-#	   return minCoins[change]
-#
-#	def printCoins(coinsUsed,change):
-#	   coin = change
-#	   while coin > 0:
-#	      thisCoin = coinsUsed[coin]
-#	      print(thisCoin)
-#	      coin = coin - thisCoin
-#
-#	def main():
-#	    amnt = 63
-#	    clist = [1,5,10,21,25]
-#	    coinsUsed = [0]*(amnt+1)
-#	    coinCount = [0]*(amnt+1)
+
+
 	
 	
 #def changedp()
@@ -80,11 +60,24 @@ def readFiles():
 				
 				
 #  Main
+def main():
+	tempidx = 0
 
-readFiles()
-print "Coin Values: "
-print coinValues
-print "Total Amount: "
-print totalValue
-#outputFile = open('Amountchange.txt')
+	readFiles()
+	print "Coin Values: "
+	for x in xrange(len(coinValues)):
+		print("Results for problem " + str(tempidx) + "\nCoins: " + str(coinValues[tempidx]) + "\n")
+		print("Amount: " + str(totalValue[tempidx]) + "\n") 
+		#print coinValues
+	print "Total Amount: "
+	print totalValue
+	#outputFile = open('Amountchange.txt')
+	tempidx += 1
+	print "Manual Extraction: "
+	print (coinValues[0][0] + coinValues[0][1])
+	print coinValues[1][0]
+	print totalValue[0]
+	print totalValue[1]
+	
+main()
 

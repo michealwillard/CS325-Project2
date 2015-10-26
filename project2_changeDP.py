@@ -63,8 +63,8 @@ def changedp(V,A,Minimum,Used):
 
 
 
-def printCoins(coinsUsed,change):
-   coin = change
+def getCoinsUsed(coinsUsed,totalVal):
+   coin = TotalVal
    while coin > 0:
       thisCoin = coinsUsed[coin]
       print(thisCoin)
@@ -99,10 +99,11 @@ def main():
 #	Add for loop to iterate through inputs
 #	Add ability to read in filename from line input
 #	For i in something
-	coinsUsed = [0]*(totalValue[0]+1)
-	coinCount = [0]*(totalValue[0]+1)
-	print("Making change for",totalValue[0],"requires")
-	print(changedp(coinValues[0],totalValue[0],coinCount,coinsUsed),"coins")
+	minCount = [0]*(totalValue[0]+1)
+	usedCount = [0]*(totalValue[0]+1)
+	
+	print("Total:",totalValue[0],"\nChange Required:")
+	print(changedp(coinValues[0],totalValue[0],minCount,usedCount),"coins")
 	
 #start = time.clock() #start time
 #end = time.clock() #end time

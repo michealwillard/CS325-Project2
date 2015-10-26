@@ -20,37 +20,29 @@ def readFiles():
 	# Input file should contain coin values and total value (to make change for)
 	global coinValues
 	global totalValue
-	
-	# Input File has data stored, Output File holds temporary arrays and final output of Algorithms
+#	coinValues = []
+#	totalValue = []
 	inputFile = open('Amount.txt', 'r')
-	outputFile = open('Amountchange.txt', 'w')
-	
-	string = inputFile.read()
-	string = string.translate(None, '[],')
-	outputFile.write(string)
-	outputFile.seek(0)
-	
-	# sub procedure to create the arrays of values
-	# 1st, 3rd, etc line is a coinValues. 2nd, 4th, etc line is a totalValue
-	with open('Amountchange.txt') as file: # double check whihc file to have here change
+	with open("Amount.txt") as file:
 		i = 0
-		for line in file:
-			# Condition for Odd number File Lines
-			# i = 0,2,4, etc
+		## sub procedure to create the arrays of values
+		## 1st, 3rd, etc line is a coinValues. 2nd, 4th, etc line is a totalValue
+		for line in inputFile:
+			line = line.replace('[', '').replace(']', '')
+			#		# Condition for Odd number File Lines
+			#		# i = 0,2,4, etc
 			if i % 2 == 0:
-				line = line.split()
+				line = line.rstrip().split(',')
 				line = [int(j) for j in line]
-				print line
+#				print line
 				coinValues.append(line)
 			# Condition for Even number File Lines
 			else:
 				line = int(line)
 				totalValue.append(line)
 			i += 1
-			print line
-	outputFile.truncate(0)
-	outputFile.close()
-	
+
+
 
 
 	
@@ -64,18 +56,18 @@ def main():
 	tempidx = 0
 
 	readFiles()
-	print "Coin Values: "
-	for x in xrange(len(coinValues)):
-		print("Results for problem " + str(tempidx) + "\nCoins: " + str(coinValues[tempidx]) + "\n")
-		print("Amount: " + str(totalValue[tempidx]) + "\n") 
-		#print coinValues
-	print "Total Amount: "
-	print totalValue
-	#outputFile = open('Amountchange.txt')
-	tempidx += 1
-	print "Manual Extraction: "
-	print (coinValues[0][0] + coinValues[0][1])
+	#	Array output check
+	print("Coin Values:")
+	print coinValues[0]
+	print coinValues[1]
+	print coinValues[0][0]
+	print coinValues[0][1]
+	print coinValues[0][2]
 	print coinValues[1][0]
+	print coinValues[1][1]
+	print coinValues[1][2]
+	print coinValues[1][3]
+	print("Total Value:")
 	print totalValue[0]
 	print totalValue[1]
 	

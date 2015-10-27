@@ -75,20 +75,23 @@ def changedp(V,A,Minimum,Used):
 
 
 
-def getCoinsUsed(coinsUsed,totalVal):
+def getCoinsUsed(coinsUsed,totalVal,coinVal):
 	coin = totalVal
 	tempCount = []
-#	print "coin:",coin
+	tallyArr = []
+	# Put the number of coins used in tempCount
 	while coin > 0:
 		thisCoin = coinsUsed[coin]
-#		print(thisCoin)
 		coin = coin - thisCoin
-#		print "coin2:",coin
 		tempCount.append(thisCoin)
-	print "tempCount",tempCount
+	t = 0
+	# Count the number of occurences of each coin in tempCount, append tally to tallyArr
+	for coin in coinVal:
+		tallyArr.append(tempCount.count(coin))
+		t += 1
 	# need to return new array that compares the values of V, ie:
 	# tempCount = [1,7,7,7], V = [1,3,7,26] => newArr = [1,0,3,0]
-	return tempCount
+	return tallyArr
 				
 				
 				
@@ -112,12 +115,10 @@ def main():
 		#sec = (end - start) #calc time
 		#print("%d\t\t\t%f\t" % (i, sec))
 		
-		minArray = getCoinsUsed(usedCount,totalValue[idx])
+		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
 		outputFile.write("\n" + str(minArray))
 		outputFile.write("\n" + str(minOutput))
-		print usedCount
-		print minCount
-
-
+#		print usedCount
+#		print minCount
 
 main()

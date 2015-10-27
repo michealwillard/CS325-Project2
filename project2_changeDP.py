@@ -21,8 +21,6 @@ def readFiles():
 	# Input file should contain coin values and total value (to make change for)
 	global coinValues
 	global totalValue
-#	coinValues = []
-#	totalValue = []
 	inputFile = open('Amount.txt', 'r')
 	with open("Amount.txt") as file:
 		i = 0
@@ -35,7 +33,6 @@ def readFiles():
 			if i % 2 == 0:
 				line = line.rstrip().split(',')
 				line = [int(j) for j in line]
-#				print line
 				coinValues.append(line)
 			# Condition for Even number File Lines
 			else:
@@ -61,15 +58,8 @@ def changedp(V,A,Minimum,Used):
 				coinCount = Minimum[cents-j]+1
 				# Reset the new coin value to j (value of coin from coin values in V)
 				newCoin = j
-#				print "idx",c
-#				print "cents",cents
-#				print "V:",V
-#				print "j:",j
-#				print "cC",coinCount
 		Minimum[cents] = coinCount
 		Used[cents] = newCoin
-#		print "Used[cents]",Used[cents]
-#		print "Min[cents]",coinCount
 		# Minimum at last index
 	return Minimum[A]
 
@@ -104,18 +94,21 @@ def main():
 	for idx in range(0,length):
 		minCount = [0]*(totalValue[idx]+1)
 		usedCount = [0]*(totalValue[idx]+1)
-		#	Change these to print to file
-		print 'Total:',totalValue[idx],"\nChange Required:"
+
+		print 'Total:',totalValue[idx]
 		
-		#	Add timing function
-		#start = time.clock() #start time
+		#	Timing to be done as a function of A
+		#	A is the value for which change is being found
+		#	Thus there should be one time per loop
+		start = time.clock() #start time
 
 		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
-		#end = time.clock() #end time
-		#sec = (end - start) #calc time
-		#print("%d\t\t\t%f\t" % (i, sec))
+		end = time.clock() #end time
+		sec = (end - start) #calc time
+		print "Time for A =",totalValue[idx],":",sec, "seconds"
 		
 		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
+#		print 'Change:',minArray
 		outputFile.write("\n" + str(minArray))
 		outputFile.write("\n" + str(minOutput))
 #		print usedCount

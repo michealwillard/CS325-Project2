@@ -62,25 +62,33 @@ def changedp(V,A,Minimum,Used):
 				# Reset the new coin value to j (value of coin from coin values in V)
 				newCoin = j
 #				print "idx",c
-				print "cents",cents
-				print "j:",j
-				print "cC",coinCount
+#				print "cents",cents
+#				print "V:",V
+#				print "j:",j
+#				print "cC",coinCount
 		Minimum[cents] = coinCount
 		Used[cents] = newCoin
-		print "Used[cents]",Used[cents]
-		print "Min[cents]",coinCount
+#		print "Used[cents]",Used[cents]
+#		print "Min[cents]",coinCount
+		# Minimum at last index
 	return Minimum[A]
 
 
 
 def getCoinsUsed(coinsUsed,totalVal):
 	coin = totalVal
-	print "coin:",coin
+	tempCount = []
+#	print "coin:",coin
 	while coin > 0:
 		thisCoin = coinsUsed[coin]
-		print(thisCoin)
+#		print(thisCoin)
 		coin = coin - thisCoin
-		print "coin2:",coin
+#		print "coin2:",coin
+		tempCount.append(thisCoin)
+	print "tempCount",tempCount
+	# need to return new array that compares the values of V, ie:
+	# tempCount = [1,7,7,7], V = [1,3,7,26] => newArr = [1,0,3,0]
+	return tempCount
 				
 				
 				
@@ -95,17 +103,21 @@ def main():
 		usedCount = [0]*(totalValue[idx]+1)
 		#	Change these to print to file
 		print 'Total:',totalValue[idx],"\nChange Required:"
+		
 		#	Add timing function
 		#start = time.clock() #start time
-		# Use a variable to get function result
-		print changedp(coinValues[idx],totalValue[idx],minCount,usedCount),"coins"
-		print "Coins Used:"
-		getCoinsUsed(usedCount,totalValue[idx])
-		print usedCount
-		print minCount
+
+		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
 		#end = time.clock() #end time
 		#sec = (end - start) #calc time
 		#print("%d\t\t\t%f\t" % (i, sec))
+		
+		minArray = getCoinsUsed(usedCount,totalValue[idx])
+		outputFile.write("\n" + str(minArray))
+		outputFile.write("\n" + str(minOutput))
+		print usedCount
+		print minCount
+
 
 
 main()

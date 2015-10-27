@@ -14,8 +14,9 @@ sys.setrecursionlimit(2000)
 coinValues = []
 totalValue = []
 lineIndex = 0
-inputFileName = 'Amount'
+#inputFileName = 'Amount'
 #inputFileName = 'q4'
+inputFileName = 'q5a'
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference
@@ -93,28 +94,29 @@ def main():
 	readFiles()
 	outputFile = open(inputFileName + 'change.txt', 'w')
 	outputFile.write("Algorithm 3: changedp Results")
+	#  Length of the array of the total Values to make change for
 	length = int(totalValue.__len__())
+	#	Iterate throught the length of the total Values array
 	for idx in range(0,length):
+		#	Temp array to store the count of the minimum number of coins needed
 		minCount = [0]*(totalValue[idx]+1)
+		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
-
 		print 'Total:',totalValue[idx]
 		
 		#	Timing to be done as a function of A
 		#	A is the value for which change is being found
 		#	Thus there should be one time per loop
 		start = time.clock() #start time
-
+		#	Call changedp algo, base the coin values and total Value from the input file
 		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
 		end = time.clock() #end time
 		sec = (end - start) #calc time
 		print "Time for A =",totalValue[idx],":",sec, "seconds"
 		
 		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
-#		print 'Change:',minArray
+		#	Write the 2 lines to output file
 		outputFile.write("\n" + str(minArray))
 		outputFile.write("\n" + str(minOutput))
-#		print usedCount
-#		print minCount
 
 main()

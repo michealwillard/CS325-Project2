@@ -16,7 +16,10 @@ totalValue = []
 lineIndex = 0
 #inputFileName = 'Amount'
 #inputFileName = 'q4'
-inputFileName = 'q5a'
+#inputFileName = 'q5a'
+#inputFileName = 'q5b'
+inputFileName = 'q5c'
+#inputFileName = 'q5d'
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference

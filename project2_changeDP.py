@@ -10,26 +10,28 @@
 
 import sys
 import time
+import readline
 sys.setrecursionlimit(2000)
 coinValues = []
 totalValue = []
 lineIndex = 0
-#inputFileName = 'Amount'
-#inputFileName = 'q4'
-#inputFileName = 'q5a'
-#inputFileName = 'q5b'
-inputFileName = 'q5c'
-#inputFileName = 'q5d'
+
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference
-def readFiles():
+def readFiles(fName):
 	# Input file should contain coin values and total value (to make change for)
 	global coinValues
 	global totalValue
+#	inputFilename = ''
 	# if statement to change inputFileName goes here
-	inputFile = open(inputFileName + '.txt', 'r')
-	with open(inputFileName + '.txt') as file:
+#	if len(sys.argv) > 1:
+#		inputFileName = sys.argv
+#	else:
+#		inputFileName = input("Enter the text file name without .txt extension: ")
+#		print inputFileName
+	inputFile = open(fName + '.txt', 'r')
+	with open(fName + '.txt') as file:
 		i = 0
 		## sub procedure to create the arrays of values
 		## 1st, 3rd, etc line is a coinValues. 2nd, 4th, etc line is a totalValue
@@ -94,7 +96,15 @@ def getCoinsUsed(coinsUsed,totalVal,coinVal):
 				
 #  Main
 def main():
-	readFiles()
+	inputFileName = ''
+	if len(sys.argv) > 1:
+		inputFileName = sys.argv[1]
+		print inputFileName
+	else:
+		print "Enter the text file name without .txt extension: "
+		inputFileName = sys.stdin.readline().rstrip('\n')
+		print inputFileName
+	readFiles(inputFileName)
 	outputFile = open(inputFileName + 'change.txt', 'w')
 	outputFile.write("Algorithm 3: changedp Results")
 	#  Length of the array of the total Values to make change for
@@ -105,7 +115,7 @@ def main():
 		minCount = [0]*(totalValue[idx]+1)
 		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
-		print 'Total:',totalValue[idx]
+#		print 'Total:',totalValue[idx]
 		
 		#	Timing to be done as a function of A
 		#	A is the value for which change is being found
@@ -115,7 +125,9 @@ def main():
 		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
 		end = time.clock() #end time
 		sec = (end - start) #calc time
-		print "Time for A =",totalValue[idx],":",sec, "seconds"
+#		print "Time for A =",totalValue[idx],":"
+		print sec
+#		print "seconds"
 		
 		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
 		#	Write the 2 lines to output file

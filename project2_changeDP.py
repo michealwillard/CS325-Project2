@@ -1,11 +1,12 @@
 # CS 325 - Project 2 - Coin Change
 # Group 13
 # Micheal Willard
-# Joshua Johnson
+# Stephen Heng
+# Frankie Nguyen
 # Robert Tang
 # project2_changeDP.py
 
-# ********* COMMENT OUT PRINTS IN FUNCTIONS *******
+
 
 import sys
 import time
@@ -13,7 +14,8 @@ sys.setrecursionlimit(2000)
 coinValues = []
 totalValue = []
 lineIndex = 0
-inputFileName = ''
+inputFileName = 'Amount'
+#inputFileName = 'q4'
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference
@@ -21,8 +23,9 @@ def readFiles():
 	# Input file should contain coin values and total value (to make change for)
 	global coinValues
 	global totalValue
-	inputFile = open('Amount.txt', 'r')
-	with open("Amount.txt") as file:
+	# if statement to change inputFileName goes here
+	inputFile = open(inputFileName + '.txt', 'r')
+	with open(inputFileName + '.txt') as file:
 		i = 0
 		## sub procedure to create the arrays of values
 		## 1st, 3rd, etc line is a coinValues. 2nd, 4th, etc line is a totalValue
@@ -88,8 +91,8 @@ def getCoinsUsed(coinsUsed,totalVal,coinVal):
 #  Main
 def main():
 	readFiles()
-	outputFile = open('Amountchange.txt', 'w')
-	outputFile.write("Algorithm 3: changedp")
+	outputFile = open(inputFileName + 'change.txt', 'w')
+	outputFile.write("Algorithm 3: changedp Results")
 	length = int(totalValue.__len__())
 	for idx in range(0,length):
 		minCount = [0]*(totalValue[idx]+1)

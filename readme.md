@@ -11,3 +11,7 @@ To run the changedp algorithm:
     2       -> The minimum number of coins needed
     [1,0,3,0]
     4
+    Command Line Ouput:
+      For time analysis, there is a command line output of each Value of A
+        (the amount of money change is being made for)
+        and a Time in Seconds

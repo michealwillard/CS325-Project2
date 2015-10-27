@@ -53,9 +53,12 @@ def changedp(V,A,Minimum,Used):
    for cents in range(A+1):
       coinCount = cents
       newCoin = 1
+		# j starting at 0 going to c, for list compression
       for j in [c for c in V if c <= cents]:
+			# Check if current coinCount > Minimum at index cents - j
             if Minimum[cents-j] + 1 < coinCount:
                coinCount = Minimum[cents-j]+1
+				# Reset the new coin value to j (value of coin from coin values in V)
                newCoin = j
       Minimum[cents] = coinCount
       Used[cents] = newCoin
@@ -74,42 +77,20 @@ def getCoinsUsed(coinsUsed,totalVal):
 				
 #  Main
 def main():
-	tempidx = 0
-
 	readFiles()
-	#	Array output check
-#	print("Testing Array Values\nCoin Values:")
-#	print coinValues[0]
-#	print coinValues[1]
-##	print coinValues[0][0]
-##	print coinValues[0][1]
-##	print coinValues[0][2]
-##	print coinValues[1][0]
-##	print coinValues[1][1]
-##	print coinValues[1][2]
-##	print coinValues[1][3]
-#	print("Total Value:")
-#	print totalValue[0]
-#	print totalValue[1]
+	length = int(totalValue.__len__())
+	for idx in range(0,length):
+		minCount = [0]*(totalValue[idx]+1)
+		usedCount = [0]*(totalValue[idx]+1)
+		#	Change these to print to file
+		print totalValue[idx]
+		print 'Total:',totalValue[idx],"\nChange Required:"
+		#	Add timing function
+		#start = time.clock() #start time
+		print changedp(coinValues[idx],totalValue[idx],minCount,usedCount),"coins"
+		#end = time.clock() #end time
+		#sec = (end - start) #calc time
+		#print("%d\t\t\t%f\t" % (i, sec))
 
-
-	
-#	Add ability to read in filename from line input
-
-#	Add for loop to iterate through inputs
-#	For i in something
-	minCount = [0]*(totalValue[0]+1)
-	usedCount = [0]*(totalValue[0]+1)
-	#	Change these to print to file
-	
-	print("Total:",totalValue[0],"\nChange Required:")
-	#	Add timing function
-	print(changedp(coinValues[0],totalValue[0],minCount,usedCount),"coins")
-	
-#start = time.clock() #start time
-#end = time.clock() #end time
-#sec = (end - start) #calc time
-#print("%d\t\t\t%f\t" % (i, sec))
 
 main()
-

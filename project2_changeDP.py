@@ -100,10 +100,15 @@ def main():
 #	For i in something
 	minCount = [0]*(totalValue[0]+1)
 	usedCount = [0]*(totalValue[0]+1)
+<<<<<<< HEAD
 	#	Change these to print to file
 	
 	print("Total:",totalValue[0],"\nChange Required:")
 	#	Add timing function
+=======
+	
+	print("Total:",totalValue[0],"\nChange Required:")
+>>>>>>> origin/master
 	print(changedp(coinValues[0],totalValue[0],minCount,usedCount),"coins")
 	
 #start = time.clock() #start time

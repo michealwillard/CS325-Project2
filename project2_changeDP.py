@@ -3,9 +3,9 @@
 # Micheal Willard
 # Joshua Johnson
 # Robert Tang
-# project2.py
+# project2_changeDP.py
 
-
+# ********* COMMENT OUT PRINTS IN FUNCTIONS *******
 
 import sys
 import time
@@ -13,6 +13,7 @@ sys.setrecursionlimit(2000)
 coinValues = []
 totalValue = []
 lineIndex = 0
+inputFileName = ''
 
 # Function to read in data from input file and create arrayswith data
 # O'Reilly: Learning Python File I/O used for reference
@@ -50,44 +51,58 @@ def readFiles():
 #	Array Used which is the full Dynamic Programming counting array
 	
 def changedp(V,A,Minimum,Used):
-   for cents in range(A+1):
-      coinCount = cents
-      newCoin = 1
+	for cents in range(A+1):
+		coinCount = cents
+		newCoin = 1
 		# j starting at 0 going to c, for list compression
-      for j in [c for c in V if c <= cents]:
+		for j in [c for c in V if c <= cents]:
 			# Check if current coinCount > Minimum at index cents - j
-            if Minimum[cents-j] + 1 < coinCount:
-               coinCount = Minimum[cents-j]+1
+			if Minimum[cents-j] + 1 < coinCount:
+				coinCount = Minimum[cents-j]+1
 				# Reset the new coin value to j (value of coin from coin values in V)
-               newCoin = j
-      Minimum[cents] = coinCount
-      Used[cents] = newCoin
-   return Minimum[A]
+				newCoin = j
+#				print "idx",c
+				print "cents",cents
+				print "j:",j
+				print "cC",coinCount
+		Minimum[cents] = coinCount
+		Used[cents] = newCoin
+		print "Used[cents]",Used[cents]
+		print "Min[cents]",coinCount
+	return Minimum[A]
 
 
 
 def getCoinsUsed(coinsUsed,totalVal):
-   coin = TotalVal
-   while coin > 0:
-      thisCoin = coinsUsed[coin]
-      print(thisCoin)
-      coin = coin - thisCoin
+	coin = totalVal
+	print "coin:",coin
+	while coin > 0:
+		thisCoin = coinsUsed[coin]
+		print(thisCoin)
+		coin = coin - thisCoin
+		print "coin2:",coin
 				
 				
 				
 #  Main
 def main():
 	readFiles()
+	outputFile = open('Amountchange.txt', 'w')
+	outputFile.write("Algorithm 3: changedp")
 	length = int(totalValue.__len__())
 	for idx in range(0,length):
 		minCount = [0]*(totalValue[idx]+1)
 		usedCount = [0]*(totalValue[idx]+1)
 		#	Change these to print to file
-		print totalValue[idx]
 		print 'Total:',totalValue[idx],"\nChange Required:"
 		#	Add timing function
 		#start = time.clock() #start time
+		# Use a variable to get function result
 		print changedp(coinValues[idx],totalValue[idx],minCount,usedCount),"coins"
+		print "Coins Used:"
+		getCoinsUsed(usedCount,totalValue[idx])
+		print usedCount
+		print minCount
 		#end = time.clock() #end time
 		#sec = (end - start) #calc time
 		#print("%d\t\t\t%f\t" % (i, sec))

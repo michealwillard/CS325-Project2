@@ -10,6 +10,7 @@
 
 import sys
 import time
+import datetime
 import readline
 sys.setrecursionlimit(2000)
 coinValues = []
@@ -126,7 +127,7 @@ def main():
 		end = time.clock() #end time
 		sec = (end - start) #calc time
 #		print "Time for A =",totalValue[idx],":"
-		print sec
+		print "%0.5f" % sec
 #		print "seconds"
 		
 		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])

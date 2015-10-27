@@ -63,8 +63,8 @@ def changedp(V,A,Minimum,Used):
 
 
 
-def printCoins(coinsUsed,change):
-   coin = change
+def getCoinsUsed(coinsUsed,totalVal):
+   coin = TotalVal
    while coin > 0:
       thisCoin = coinsUsed[coin]
       print(thisCoin)
@@ -78,31 +78,33 @@ def main():
 
 	readFiles()
 	#	Array output check
-	print("Testing Array Values\nCoin Values:")
-	print coinValues[0]
-	print coinValues[1]
-#	print coinValues[0][0]
-#	print coinValues[0][1]
-#	print coinValues[0][2]
-#	print coinValues[1][0]
-#	print coinValues[1][1]
-#	print coinValues[1][2]
-#	print coinValues[1][3]
-	print("Total Value:")
-	print totalValue[0]
-	print totalValue[1]
+#	print("Testing Array Values\nCoin Values:")
+#	print coinValues[0]
+#	print coinValues[1]
+##	print coinValues[0][0]
+##	print coinValues[0][1]
+##	print coinValues[0][2]
+##	print coinValues[1][0]
+##	print coinValues[1][1]
+##	print coinValues[1][2]
+##	print coinValues[1][3]
+#	print("Total Value:")
+#	print totalValue[0]
+#	print totalValue[1]
 
 
 	
-#	Change these to print to file
-#	Add timing function
-#	Add for loop to iterate through inputs
 #	Add ability to read in filename from line input
+
+#	Add for loop to iterate through inputs
 #	For i in something
-	coinsUsed = [0]*(totalValue[0]+1)
-	coinCount = [0]*(totalValue[0]+1)
-	print("Making change for",totalValue[0],"requires")
-	print(changedp(coinValues[0],totalValue[0],coinCount,coinsUsed),"coins")
+	minCount = [0]*(totalValue[0]+1)
+	usedCount = [0]*(totalValue[0]+1)
+	#	Change these to print to file
+	
+	print("Total:",totalValue[0],"\nChange Required:")
+	#	Add timing function
+	print(changedp(coinValues[0],totalValue[0],minCount,usedCount),"coins")
 	
 #start = time.clock() #start time
 #end = time.clock() #end time

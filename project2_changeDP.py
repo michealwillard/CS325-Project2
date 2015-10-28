@@ -24,13 +24,6 @@ def readFiles(fName):
 	# Input file should contain coin values and total value (to make change for)
 	global coinValues
 	global totalValue
-#	inputFilename = ''
-	# if statement to change inputFileName goes here
-#	if len(sys.argv) > 1:
-#		inputFileName = sys.argv
-#	else:
-#		inputFileName = input("Enter the text file name without .txt extension: ")
-#		print inputFileName
 	inputFile = open(fName + '.txt', 'r')
 	with open(fName + '.txt') as file:
 		i = 0

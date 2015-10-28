@@ -4,7 +4,7 @@
 # Stephen Heng
 # Frankie Nguyen
 # Robert Tang
-# project2_changeDP.py
+# project2_greedy.py
 
 
 

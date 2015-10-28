@@ -1,6 +1,10 @@
 
 
-To run the changedp algorithm:
+File Names:
+  project2_changeDP.py
+  project2_greedy.py
+
+To run the changedp and greepy algorithms:
   Have the Amount.txt input file, or equivalent in the directory
   From Command line, type:
     python project2_changeDP.py [followed by your filename without .txt]
@@ -14,7 +18,7 @@ To run the changedp algorithm:
     2       -> The minimum number of coins needed
     [1,0,3,0]
     4
-    
+
     Command Line Output:
       For time analysis, there is a command line output of each Value of A
         (the amount of money change is being made for)

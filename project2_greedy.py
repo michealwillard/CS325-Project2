@@ -50,21 +50,53 @@ def readFiles(fName):
 #	Array Minimum which counts the minimum number of coins used
 #	Array Used which is the full Dynamic Programming counting array
 	
-def changedp(V,A,Minimum,Used):
-	for cents in range(A+1):
-		coinCount = cents
-		newCoin = 1
-		# j starting at 0 going to c, for list compression
-		for j in [c for c in V if c <= cents]:
-			# Check if current coinCount > Minimum at index cents - j
-			if Minimum[cents-j] + 1 < coinCount:
-				coinCount = Minimum[cents-j]+1
-				# Reset the new coin value to j (value of coin from coin values in V)
-				newCoin = j
-		Minimum[cents] = coinCount
-		Used[cents] = newCoin
-		# Minimum at last index
-	return Minimum[A]
+#def changedp(V,A,Minimum,Used):
+#	for cents in range(A+1):
+#		coinCount = cents
+#		newCoin = 1
+#		# j starting at 0 going to c, for list compression
+#		for j in [c for c in V if c <= cents]:
+#			# Check if current coinCount > Minimum at index cents - j
+#			if Minimum[cents-j] + 1 < coinCount:
+#				coinCount = Minimum[cents-j]+1
+#				# Reset the new coin value to j (value of coin from coin values in V)
+#				newCoin = j
+#		Minimum[cents] = coinCount
+#		Used[cents] = newCoin
+#		# Minimum at last index
+#	return Minimum[A]
+#	
+def changegreedy(V,A,Minimum,Used):
+
+
+	currentValue = A
+	remainder = 0
+	coinsMin = 0
+	div = 0
+	
+	idx = int(V.__len__()) - 1
+	tempArr = [0]*(idx+1)
+#	print "idx:",idx
+	
+	while currentValue > 0:
+		div = currentValue / V[idx]
+#		print "div:",div
+		rem = currentValue % V[idx]
+#		print "rem:",rem
+		currentValue -= V[idx] * div
+#		print "currentValue:",currentValue
+		coinsMin += div
+#		print "coinsMin:",coinsMin
+		tempArr[idx] = div
+#		print "V[idx]",V[idx]
+		idx -= 1
+
+#		coinsMin += (currentValue / coins[VnumCoins - k])
+#		currentValue = (currentValue % coins[VnumCoins - k])
+	print tempArr
+	Used = tempArr
+
+	return coinsMin
 
 
 
@@ -84,10 +116,11 @@ def getCoinsUsed(coinsUsed,totalVal,coinVal):
 	# tempCount = [1,7,7,7], V = [1,3,7,26] => newArr = [1,0,3,0]
 	return tallyArr
 				
+
 				
-				
-#  Main
+##  Main
 def main():
+	
 	inputFileName = ''
 	if len(sys.argv) > 1:
 		inputFileName = sys.argv[1]
@@ -98,7 +131,8 @@ def main():
 		print inputFileName
 	readFiles(inputFileName)
 	outputFile = open(inputFileName + 'change.txt', 'w')
-	outputFile.write("Algorithm 3: changedp Results")
+	outputFile.write("Algorithm 2: changegreedy Results")
+	
 	#  Length of the array of the total Values to make change for
 	length = int(totalValue.__len__())
 	#	Iterate throught the length of the total Values array
@@ -107,23 +141,23 @@ def main():
 		minCount = [0]*(totalValue[idx]+1)
 		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
-#		print 'Total:',totalValue[idx]
+		print 'Total:',totalValue[idx]
 		
 		#	Timing to be done as a function of A
 		#	A is the value for which change is being found
 		#	Thus there should be one time per loop
 		start = time.clock() #start time
 		#	Call changedp algo, base the coin values and total Value from the input file
-		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
+		minOutput = changegreedy(coinValues[idx],totalValue[idx],minCount,usedCount)
 		end = time.clock() #end time
 		sec = (end - start) #calc time
 #		print "Time for A =",totalValue[idx],":"
 		print "%0.5f" % sec
 #		print "seconds"
 		
-		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
+#		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
 		#	Write the 2 lines to output file
-		outputFile.write("\n" + str(minArray))
+#		outputFile.write("\n" + str(usedCount))
 		outputFile.write("\n" + str(minOutput))
 
 main()

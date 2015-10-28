@@ -43,78 +43,34 @@ def readFiles(fName):
 				totalValue.append(line)
 			i += 1
 
-# Change Dynamic Programming Function
-# Inputs: 
-#	Array V where V[i] is the value of the coin of the ith denomination
-#	Value A which is the amount of change being asked to make
-#	Array Minimum which counts the minimum number of coins used
-#	Array Used which is the full Dynamic Programming counting array
-	
-#def changedp(V,A,Minimum,Used):
-#	for cents in range(A+1):
-#		coinCount = cents
-#		newCoin = 1
-#		# j starting at 0 going to c, for list compression
-#		for j in [c for c in V if c <= cents]:
-#			# Check if current coinCount > Minimum at index cents - j
-#			if Minimum[cents-j] + 1 < coinCount:
-#				coinCount = Minimum[cents-j]+1
-#				# Reset the new coin value to j (value of coin from coin values in V)
-#				newCoin = j
-#		Minimum[cents] = coinCount
-#		Used[cents] = newCoin
-#		# Minimum at last index
-#	return Minimum[A]
+
 #	
-def changegreedy(V,A,Minimum,Used):
-
-
+def changegreedy(V,A,Minimum):
 	currentValue = A
 	remainder = 0
 	coinsMin = 0
 	div = 0
-	
 	idx = int(V.__len__()) - 1
 	tempArr = [0]*(idx+1)
-#	print "idx:",idx
 	
 	while currentValue > 0:
 		div = currentValue / V[idx]
-#		print "div:",div
 		rem = currentValue % V[idx]
-#		print "rem:",rem
 		currentValue -= V[idx] * div
-#		print "currentValue:",currentValue
 		coinsMin += div
-#		print "coinsMin:",coinsMin
 		tempArr[idx] = div
-#		print "V[idx]",V[idx]
 		idx -= 1
-
-#		coinsMin += (currentValue / coins[VnumCoins - k])
-#		currentValue = (currentValue % coins[VnumCoins - k])
-	print tempArr
-	Used = tempArr
-
-	return coinsMin
+	print coinsMin
+	Minimum = coinsMin
+	return tempArr
 
 
 
-def getCoinsUsed(coinsUsed,totalVal,coinVal):
-	coin = totalVal
-	tempCount = []
-	tallyArr = []
-	# Put the number of coins used in tempCount
-	while coin > 0:
-		thisCoin = coinsUsed[coin]
-		coin = coin - thisCoin
-		tempCount.append(thisCoin)
-	# Count the number of occurences of each coin in tempCount, append tally to tallyArr
-	for coin in coinVal:
-		tallyArr.append(tempCount.count(coin))
-	# need to return new array that compares the values of V, ie:
-	# tempCount = [1,7,7,7], V = [1,3,7,26] => newArr = [1,0,3,0]
-	return tallyArr
+def getCoinsUsed(minArr):
+	tally = 0
+	for i in minArr:
+		tally += i
+	return tally
 				
 
 				
@@ -139,6 +95,7 @@ def main():
 	for idx in range(0,length):
 		#	Temp array to store the count of the minimum number of coins needed
 		minCount = [0]*(totalValue[idx]+1)
+		minCoins = 0
 		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
 		print 'Total:',totalValue[idx]
@@ -148,16 +105,15 @@ def main():
 		#	Thus there should be one time per loop
 		start = time.clock() #start time
 		#	Call changedp algo, base the coin values and total Value from the input file
-		minOutput = changegreedy(coinValues[idx],totalValue[idx],minCount,usedCount)
+		usedCount[idx] = changegreedy(coinValues[idx],totalValue[idx],minCoins)
 		end = time.clock() #end time
 		sec = (end - start) #calc time
-#		print "Time for A =",totalValue[idx],":"
+
 		print "%0.5f" % sec
-#		print "seconds"
-		
-#		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
+
+		minTally = getCoinsUsed(usedCount[idx])
 		#	Write the 2 lines to output file
-#		outputFile.write("\n" + str(usedCount))
-		outputFile.write("\n" + str(minOutput))
+		outputFile.write("\n" + str(usedCount[idx]))
+		outputFile.write("\n" + str(minTally))
 
 main()

@@ -60,8 +60,6 @@ def changegreedy(V,A,Minimum):
 		coinsMin += div
 		tempArr[idx] = div
 		idx -= 1
-	print coinsMin
-	Minimum = coinsMin
 	return tempArr
 
 
@@ -98,7 +96,6 @@ def main():
 		minCoins = 0
 		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
-		print 'Total:',totalValue[idx]
 		
 		#	Timing to be done as a function of A
 		#	A is the value for which change is being found

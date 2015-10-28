@@ -107,8 +107,6 @@ def main():
 		minCount = [0]*(totalValue[idx]+1)
 		#	Temp array to store the count of the coins used
 		usedCount = [0]*(totalValue[idx]+1)
-#		print 'Total:',totalValue[idx]
-		
 		#	Timing to be done as a function of A
 		#	A is the value for which change is being found
 		#	Thus there should be one time per loop
@@ -117,9 +115,7 @@ def main():
 		minOutput = changedp(coinValues[idx],totalValue[idx],minCount,usedCount)
 		end = time.clock() #end time
 		sec = (end - start) #calc time
-#		print "Time for A =",totalValue[idx],":"
 		print "%0.5f" % sec
-#		print "seconds"
 		
 		minArray = getCoinsUsed(usedCount,totalValue[idx],coinValues[idx])
 		#	Write the 2 lines to output file
